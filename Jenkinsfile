@@ -34,6 +34,13 @@ pipeline {
             }
          }
       }
+      stage("Tag and Push") {
+         steps {
+                sh "docker tag jenkins-pipeline_web:latest $yezi9/jenkins-app:${BUILD_NUMBER}"
+                sh "docker login -u $yezi9 -p $thsu990415"
+                sh "docker push $yezi9/jenkins-app:${BUILD_NUMBER}"
+         }
+      }
       stage("deploy") {
          steps {
             sh "docker-compose up -d"
